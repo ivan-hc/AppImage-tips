@@ -9,6 +9,8 @@ This is a guide for children aged 6 and up.
  
 - [What to use](#what-to-use)
   - [How to use appimagetool](#how-to-use-appimagetool)
+    - [Simple use](#simple-use)
+    - [How to add delta updates](#how-to-add-delta-updates)
 
 - [How to convert existing AppImages](#how-to-convert-existing-AppImages)
 
@@ -47,7 +49,10 @@ Use `appimagetool`, the official one is https://github.com/AppImage/appimagetool
 Alternatively, you can use this fork https://github.com/pkgforge-dev/appimagetool-uruntime 
 
 ## How to use appimagetool
-Given the "AppDir", you need to set the architecture (ARCH) and run the program like this
+Given the "AppDir", you need to set the architecture (ARCH).
+
+## Simple use
+Run the program like this
 ```
 ARCH=x86_64 ./appimagetool AppDir
 ```
@@ -59,6 +64,7 @@ VERSION="1.2.3"
 ARCH=x86_64 ./appimagetool AppDir "$APPNAME"_"$VERSION"-x86_64.AppImage
 ```
 
+## Advanced use - How to add delta updates
 You can also add delta updates info (option -u), to made updates quick (using `zsync` or even better `appimageupdatetool`).
 
 Let suppose we want add update info for this repository, ivan-hc/AppImage-tips:
