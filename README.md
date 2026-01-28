@@ -59,27 +59,27 @@ AppRun is (in most cases) a shell script.
 
 It consists of:
 - a shebang (line 1, for example `#!/bin/sh` or `#!/usr/bin/env bash`)
-- a variable indicating the AppDir directory containing the script (you can name it whatever you like; here we'll simply use "$HERE", like this `HERE="$(dirname "$(readlink -f "${0}")")"`)
+- a variable indicating the AppDir directory containing the script (you can name it whatever you like; here we'll simply use "$HERE", like this `HERE="$(cd "${0%/*}" && echo "$PWD")"`)
 - one or more commands to launch the program
 
 In this example, let's assume the binary file (in our example its name is SAMPLE) is in the root of the AppDir, close to AppRun. Here's what it looks like:
 ```
 #!/bin/sh
-HERE="$(dirname "$(readlink -f "${0}")")"
+HERE="$(cd "${0%/*}" && echo "$PWD")"
 exec "${HERE}"/SAMPLE "$@"
 ```
 
 If the SAMPLE binari is in a subdirectory, for example /usr/bin, the above changes like this:
 ```
 #!/bin/sh
-HERE="$(dirname "$(readlink -f "${0}")")"
+HERE="$(cd "${0%/*}" && echo "$PWD")"
 exec "${HERE}"/usr/bin/SAMPLE "$@"
 ```
 
 We can also set PATH to made the AppImage use all binaries under its builtin /usr/bin, like this:
 ```
 #!/bin/sh
-HERE="$(dirname "$(readlink -f "${0}")")"
+HERE="$(cd "${0%/*}" && echo "$PWD")"
 export PATH="{HERE}"/usr/bin:"${PATH}"
 exec "${HERE}"/usr/bin/SAMPLE "$@"
 ```
@@ -87,7 +87,7 @@ exec "${HERE}"/usr/bin/SAMPLE "$@"
 Optionally, if it can't read a library from the builtin /usr/lib directory, we can also try to set LD_LIBRARY_PATH, like this:
 ```
 #!/bin/sh
-HERE="$(dirname "$(readlink -f "${0}")")"
+HERE="$(cd "${0%/*}" && echo "$PWD")"
 export PATH="{HERE}"/usr/bin:"${PATH}"
 export LD_LIBRARY_PATH="{HERE}"/usr/lib:"${LD_LIBRARY_PATH}"
 exec "${HERE}"/usr/bin/SAMPLE "$@"
@@ -96,7 +96,7 @@ exec "${HERE}"/usr/bin/SAMPLE "$@"
 Yet optionally, if it can't read a file in its builtin /usr/share directory, we can try to set XDG_DATA_DIRS, like this:
 ```
 #!/bin/sh
-HERE="$(dirname "$(readlink -f "${0}")")"
+HERE="$(cd "${0%/*}" && echo "$PWD")"
 export PATH="{HERE}"/usr/bin:"${PATH}"
 export LD_LIBRARY_PATH="{HERE}"/usr/lib:"${LD_LIBRARY_PATH}"
 export XDG_DATA_DIRS="${HERE}"/usr/share/:"${XDG_DATA_DIRS}"
