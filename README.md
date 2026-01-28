@@ -48,13 +48,9 @@ For example, if you extract multiple .deb packages into a single AppDir, you nee
 
 In the screenshots below, some examples of AppDirs
 
-| Program name | Content (you can use the option `--appimage-extract` on every type2+ AppImage)
-| - | - 
-| firefox | ![Istantanea_2026-01-28_19-08-03 png](https://github.com/user-attachments/assets/523fc78c-7429-465e-acee-b107450c63ed)
-| bottles | ![Istantanea_2026-01-28_19-08-29 png](https://github.com/user-attachments/assets/ab6209b4-90fe-42aa-adc0-43ec9a3ec19b)
-| converseen | ![Istantanea_2026-01-28_19-10-05 png](https://github.com/user-attachments/assets/385c4526-fdfb-40c3-8ede-b3ab56b356d2)
-| kdenlive | ![Istantanea_2026-01-28_19-10-29 png](https://github.com/user-attachments/assets/2f910505-e0cb-430e-9e95-1d691f5b7b46)
-| simple-scan (gtk3) | ![Istantanea_2026-01-28_19-11-15 png](https://github.com/user-attachments/assets/51a83081-352f-4cd0-83f0-93058bb389dd)
+| firefox | bottles | converseen | kdenlive | simple-scan (gtk3)
+| - | - | - | - | -
+| ![Istantanea_2026-01-28_19-08-03 png](https://github.com/user-attachments/assets/523fc78c-7429-465e-acee-b107450c63ed) | ![Istantanea_2026-01-28_19-08-29 png](https://github.com/user-attachments/assets/ab6209b4-90fe-42aa-adc0-43ec9a3ec19b) | ![Istantanea_2026-01-28_19-10-05 png](https://github.com/user-attachments/assets/385c4526-fdfb-40c3-8ede-b3ab56b356d2) | ![Istantanea_2026-01-28_19-10-29 png](https://github.com/user-attachments/assets/2f910505-e0cb-430e-9e95-1d691f5b7b46) | ![Istantanea_2026-01-28_19-11-15 png](https://github.com/user-attachments/assets/51a83081-352f-4cd0-83f0-93058bb389dd)
 
 -----------------------------------------------------------
 
