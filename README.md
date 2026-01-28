@@ -27,6 +27,8 @@ See the index below for reference.
 
 - [How to convert existing AppImages](#how-to-convert-existing-appimages)
 
+- [About distributing AppImages in TAR or ZIP archives](#about-distributing-appimages-in-tar-or-zip-archives)
+
 - [Tools to create AppImages](#tools-to-create-appimages)
 
 -----------------------------------------------------------
@@ -150,6 +152,12 @@ NOTE, "$GITHUB_REPOSITORY_OWNER" is already set in Github Actions.
 If your old AppImage supports the option `--appimage-extract`, run it with this option to obtain the extracted AppDir (usually its name is "squashfs-root").
 
 Use [`appimagetool`](#what-to-use) on that directory to obtain a new generation AppImage that runs without `libfuse2`.
+
+-----------------------------------------------------------
+
+## About distributing AppImages in TAR or ZIP archives
+
+DON'T DO IT!
 
 -----------------------------------------------------------
 
