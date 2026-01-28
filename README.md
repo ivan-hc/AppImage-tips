@@ -1,18 +1,33 @@
 ## Intro
 This is a guide for children aged 6 and up.
 
+Just kidding.
+
+This guide only covers the basics.
+
+Since many packagers persist in assembling them incorrectly, I'll give you instructions on how to use `appimagetool` in the simplest and most correct way possible.
+
+This is an idiot-proof guide. I'll try to explain it in the most basic way possible, and without using overly technical terms.
+
+NOTE: This is not a guide on how to create them! There are specific tools that I'll link to at the end of the guide.
+
+See the index below for reference.
+
 -----------------------------------------------------------
 
 ## Index
 - [AppDir](#appdir)
   - [Structure of the AppDir](#structure-of-the-appdir)
+  - [AppRun](#apprun)
  
 - [What to use](#what-to-use)
   - [How to use appimagetool](#how-to-use-appimagetool)
     - [Simple use](#simple-use)
     - [How to add delta updates](#how-to-add-delta-updates)
 
-- [How to convert existing AppImages](#how-to-convert-existing-AppImages)
+- [How to convert existing AppImages](#how-to-convert-existing-appimages)
+
+- [Tools to create AppImages](#tools-to-create-appimages)
 
 -----------------------------------------------------------
 
@@ -43,6 +58,59 @@ In the screenshots below, some examples of AppDirs
 
 -----------------------------------------------------------
 
+## AppRun
+AppRun is (in most cases) a shell script.
+
+It consists of:
+- a shebang (line 1, for example `#!/bin/sh` or `#!/usr/bin/env bash`)
+- a variable indicating the AppDir directory containing the script (you can name it whatever you like; here we'll simply use "$HERE", like this `HERE="$(dirname "$(readlink -f "${0}")")"`)
+- one or more commands to launch the program
+
+In this example, let's assume the binary file (in our example its name is SAMPLE) is in the root of the AppDir, close to AppRun. Here's what it looks like:
+```
+#!/bin/sh
+HERE="$(dirname "$(readlink -f "${0}")")"
+exec "${HERE}"/SAMPLE "$@"
+```
+
+If the SAMPLE binari is in a subdirectory, for example /usr/bin, the above changes like this:
+```
+#!/bin/sh
+HERE="$(dirname "$(readlink -f "${0}")")"
+exec "${HERE}"/usr/bin/SAMPLE "$@"
+```
+
+We can also set PATH to made the AppImage use all binaries under its builtin /usr/bin, like this:
+```
+#!/bin/sh
+HERE="$(dirname "$(readlink -f "${0}")")"
+export PATH="{HERE}"/usr/bin:"${PATH}"
+exec "${HERE}"/usr/bin/SAMPLE "$@"
+```
+
+Optionally, if it can't read a library from the builtin /usr/lib directory, we can also try to set LD_LIBRARY_PATH, like this:
+```
+#!/bin/sh
+HERE="$(dirname "$(readlink -f "${0}")")"
+export PATH="{HERE}"/usr/bin:"${PATH}"
+export LD_LIBRARY_PATH="{HERE}"/usr/lib:"${LD_LIBRARY_PATH}"
+exec "${HERE}"/usr/bin/SAMPLE "$@"
+```
+
+Yet optionally, if it can't read a file in its builtin /usr/share directory, we can try to set XDG_DATA_DIRS, like this:
+```
+#!/bin/sh
+HERE="$(dirname "$(readlink -f "${0}")")"
+export PATH="{HERE}"/usr/bin:"${PATH}"
+export LD_LIBRARY_PATH="{HERE}"/usr/lib:"${LD_LIBRARY_PATH}"
+export XDG_DATA_DIRS="${HERE}"/usr/share/:"${XDG_DATA_DIRS}"
+exec "${HERE}"/usr/bin/SAMPLE "$@"
+```
+
+...and so on.
+
+-----------------------------------------------------------
+
 ## What to use
 Use `appimagetool`, the official one is https://github.com/AppImage/appimagetool
 
@@ -64,7 +132,7 @@ VERSION="1.2.3"
 ARCH=x86_64 ./appimagetool AppDir "$APPNAME"_"$VERSION"-x86_64.AppImage
 ```
 
-## Advanced use - How to add delta updates
+## How to add delta updates
 You can also add delta updates info (option -u), to made updates quick (using `zsync` or even better `appimageupdatetool`).
 
 Let suppose we want add update info for this repository, ivan-hc/AppImage-tips:
@@ -85,7 +153,21 @@ NOTE, "$GITHUB_REPOSITORY_OWNER" is already set in Github Actions.
 ## How to convert existing AppImages
 If your old AppImage supports the option `--appimage-extract`, run it with this option to obtain the extracted AppDir (usually its name is "squashfs-root").
 
-Use `appimagetool` on that directory to obtain a new generation AppImage that runs without `libfuse2`.
+Use [`appimagetool`](#what-to-use) on that directory to obtain a new generation AppImage that runs without `libfuse2`.
+
+-----------------------------------------------------------
+
+## Tools to create AppImages
+
+There are many tools for building AppImage packages.
+
+This is the ranking of my favorites among the ones I use (from best to least effective):
+1. Anylinux https://github.com/pkgforge-dev/Anylinux-AppImages - create AppImages that run everywhere
+2. Archimage https://github.com/ivan-hc/ArchImage - buils AppImages including a minimal Arch Linux (JuNest) container
+3. AppImaGen https://github.com/ivan-hc/AppImaGen - buld AppImages on a Debian/Ubuntu base (classic)
+4. Snap2AppImage https://github.com/ivan-hc/Snap2AppImage - try to convert Snap packages to AppImages
+
+I mostly base my AppImages on Archimage and Anylinux, but you can choose the tool that best suits your needs.
 
 -----------------------------------------------------------
 
