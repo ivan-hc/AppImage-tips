@@ -153,6 +153,8 @@ If your old AppImage supports the option `--appimage-extract`, run it with this 
 
 Use [`appimagetool`](#what-to-use) on that directory to obtain a new generation AppImage that runs without `libfuse2`.
 
+NOTE: if you are looking for a tool that can convert it quickly, see https://github.com/ivan-hc/portable2appimage
+
 -----------------------------------------------------------
 
 ## About distributing AppImages in TAR or ZIP archives
