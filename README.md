@@ -141,7 +141,7 @@ GITHUB_REPOSITORY_OWNER="ivan-hc"
 REPO="AppImage-tips"
 TAG="latest"
 UPINFO="gh-releases-zsync|$GITHUB_REPOSITORY_OWNER|$REPO|$TAG|*x86_64.AppImage.zsync"
-ARCH=x86_64 ./appimagetool -u "$UPINFO" .AppDir "$APPNAME"_"$VERSION"-x86_64.AppImage
+ARCH=x86_64 ./appimagetool -u "$UPINFO" AppDir "$APPNAME"_"$VERSION"-x86_64.AppImage
 ```
 
 NOTE, "$GITHUB_REPOSITORY_OWNER" is already set in Github Actions.
