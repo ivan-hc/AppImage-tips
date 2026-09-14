@@ -112,7 +112,7 @@ exec "${HERE}"/usr/bin/SAMPLE "$@"
 ## What to use
 Use `appimagetool`, the official one is https://github.com/AppImage/appimagetool
 
-Alternatively, you can use this fork https://github.com/pkgforge-dev/appimagetool-uruntime 
+Alternatively, you can use this fork https://github.com/pkgforge-dev/appimagetool
 
 ## How to use appimagetool
 Given the "AppDir", you need to set the architecture (ARCH).
