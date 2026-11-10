@@ -28,6 +28,7 @@ See the index below for reference.
 - [How to convert existing AppImages](#how-to-convert-existing-appimages)
 
 - [About distributing AppImages in TAR or ZIP archives](#about-distributing-appimages-in-tar-or-zip-archives)
+  - [I need to distribute my configurations into a separate directory. Is an archive necessary?](#i-need-to-distribute-my-configurations-into-a-separate-directory-is-an-archive-necessary)
 
 - [Tools to create AppImages](#tools-to-create-appimages)
 
@@ -160,6 +161,18 @@ NOTE: if you are looking for a tool that can convert it quickly, see https://git
 ## About distributing AppImages in TAR or ZIP archives
 
 DON'T DO IT!
+
+### I need to distribute my configurations into a separate directory. Is an archive necessary?
+
+NO! This can be handled at the [AppRun](#apprun) level: the script can simply launch processes that detect the presence of these `.config` or `.home` directories—and the files to be stored within them.
+
+For instance, you could use `mkdir` to create a directory named `${APPIMAGE}.home`, then copy data from inside the AppImage into it (recommended, with `cp`) or, if necessary, download or update that data from an online source (with `wget`, `curl` or whatever CLI utility you need to download it).
+
+Many emulation apps distribute their AppImage packages as part of an archive that also includes a `.home` directory; this causes the package size to balloon, forcing users to re-download the entire program rather than relying on delta updates.
+
+Delegating this entirely to [AppRun](#apprun) is the best practice.
+
+**All you need is a basic knowledge of shell scripting.**
 
 -----------------------------------------------------------
 
